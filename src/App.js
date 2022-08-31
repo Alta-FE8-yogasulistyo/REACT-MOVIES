@@ -7,8 +7,8 @@ class App extends Component {
   render() {
     return (
       <>
-        <Navbars />
-        <ListFilm data="Now Playing" />
+        <Navbars nav1="Movies" nav2="Now Playing" nav3="Favorit" />
+        <ListFilm judul1="Now Playing" />
         <ListFav data="List Favorit" />
       </>
     );

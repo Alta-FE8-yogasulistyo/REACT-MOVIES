@@ -12,11 +12,10 @@ class Navbars extends Component {
       <>
         <Navbar bg="dark" variant="dark">
           <Container>
-            <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+            <Navbar.Brand href="#home">{this.props.nav1}</Navbar.Brand>
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#features">Features</Nav.Link>
-              <Nav.Link href="#pricing">Pricing</Nav.Link>
+              <Nav.Link href="#home">{this.props.nav2}</Nav.Link>
+              <Nav.Link href="#features">{this.props.nav3}</Nav.Link>
             </Nav>
           </Container>
         </Navbar>
