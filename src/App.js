@@ -1,16 +1,22 @@
+// import libraries
 import React, { Component } from "react";
-import Navbars from "./components/Navbar";
-import ListFilm from "./components/ListFilm";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+// import pages
 import ListFav from "./components/ListFav";
+import Detail from "./pages/Detail/Detail";
+import Home from "./pages/Home/Home";
 
 class App extends Component {
   render() {
     return (
-      <>
-        <Navbars nav1="Movies" nav2="Now Playing" nav3="Favorit" />
-        <ListFilm judul1="Now Playing" />
-        <ListFav data="List Favorit" />
-      </>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/detail" element={<Detail />} />
+          <Route path="/Favorit" element={<ListFav />} />
+        </Routes>
+      </BrowserRouter>
     );
   }
 }

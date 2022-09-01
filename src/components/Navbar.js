@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
+import withRouter from "../withRouter";
 
 class Navbars extends Component {
   constructor(props) {
@@ -23,4 +24,4 @@ class Navbars extends Component {
     );
   }
 }
-export default Navbars;
+export default withRouter(Navbars);
