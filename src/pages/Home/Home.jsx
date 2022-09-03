@@ -6,7 +6,7 @@ class Home extends Component {
   render() {
     return (
       <>
-        <Navbar nav1="Movies" />
+        <Navbar />
         <ListFilm judul1="Nom Playing" />
       </>
     );

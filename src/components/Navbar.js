@@ -13,10 +13,10 @@ class Navbars extends Component {
       <>
         <Navbar bg="dark" variant="dark">
           <Container>
-            <Navbar.Brand href="#home">{this.props.nav1}</Navbar.Brand>
+            <Navbar.Brand href="#home">MOVIES</Navbar.Brand>
             <Nav className="me-auto">
-              <Nav.Link href="#home">{this.props.nav2}</Nav.Link>
-              <Nav.Link href="#features">{this.props.nav3}</Nav.Link>
+              <Nav.Link href="#home">Now Playing</Nav.Link>
+              <Nav.Link href="#features">Favorit</Nav.Link>
             </Nav>
           </Container>
         </Navbar>
