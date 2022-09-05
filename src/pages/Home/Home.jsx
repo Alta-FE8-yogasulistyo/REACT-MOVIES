@@ -1,16 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
+import MyNavbar from "../../components/MyNavbar";
 import ListFilm from "../../components/ListFilm";
-import Navbar from "../../components/Navbar";
 
-class Home extends Component {
-  render() {
-    return (
-      <>
-        <Navbar />
-        <ListFilm judul1="Nom Playing" />
-      </>
-    );
-  }
-}
+const NowPlaying = () => {
+  return (
+    <>
+      <MyNavbar />
+      <ListFilm />
+    </>
+  );
+};
 
-export default Home;
+export default NowPlaying;
