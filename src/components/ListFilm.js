@@ -1,13 +1,16 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Card, Button, Container, Row, Col } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useFavContext } from "../context/FavoritesProvider";
 
 const BASEURL = "https://api.themoviedb.org/3/movie/now_playing?api_key=3812e9c1284f7c1d1663a94152f486fa&language=en-US&page=1";
 
 const BASEIMAGE = "https://image.tmdb.org/t/p/original";
 
 const ListFilm = () => {
+  const { handleFav, fav } = useFavContext();
+
   const navigate = useNavigate();
 
   // penampung data dari api
@@ -61,6 +64,9 @@ const ListFilm = () => {
                       <Card.Text className="text-center">{film.release_date}</Card.Text>
                       <Button onClick={() => handleClick(film)} className="w-100 mt-2" variant="primary">
                         Detail Movie
+                      </Button>
+                      <Button onClick={() => handleFav(film)} className="w-100 mt-2" variant="primary">
+                        Add Favorit
                       </Button>
                     </Card.Body>
                   </Card>
