@@ -1,51 +1,73 @@
-import React, { Component } from "react";
-import { Card, Container, Row, Col } from "react-bootstrap";
+import axios from "axios";
+import React, { useState, useEffect, useContext } from "react";
+import { Card, Button, Container, Row, Col } from "react-bootstrap";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useFavContext } from "../context/FavoritesProvider";
 
-class ListFilm extends Component {
-  state = {
-    film: [
-      {
-        image: "https://s1.bukalapak.com/img/68286857232/large/Poster_Film___Avengers_Endgame___Marvel_Studios___Movie_Post.jpg",
-        tittle: "Avangers Endgame",
-        desc: "Film ini menceritakan tentang superhero",
+const BASEURL = "https://api.themoviedb.org/3/movie/now_playing?api_key=3812e9c1284f7c1d1663a94152f486fa&language=en-US&page=1";
+
+const BASEIMAGE = "https://image.tmdb.org/t/p/original";
+
+const ListFilm = () => {
+  const { handleFav, fav } = useFavContext();
+
+  const navigate = useNavigate();
+
+  // penampung data dari api
+  const [film, setFilm] = useState([]);
+
+  // Fetch API Hook axios
+  const getFilm = async () => {
+    await axios
+      .get(BASEURL)
+      .then((respon) => {
+        setFilm(respon.data.results);
+      })
+      .catch((erorr) => {
+        console.log(erorr);
+      });
+  };
+  // Push Data API ke Database(tampungan)
+  useEffect(() => {
+    getFilm();
+  }, []);
+
+  // handleClick to Detail PAges
+  const handleClick = (film) => {
+    navigate(`/Detail`, {
+      state: {
+        titleOri: film.original_title,
+        title: film.title,
+        overview: film.overview,
+        release: film.release_date,
+        vote: film.vote_average,
+        languageOri: film.original_language,
+        popularity: film.popularity,
+        poster: BASEIMAGE + film.poster_path,
       },
-      {
-        image: "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/action-movie-poster-template-design-0f5fff6262fdefb855e3a9a3f0fdd361_screen.jpg?ts=1636996054",
-        tittle: "FREDOM",
-        desc: "Film ini mencari-cari kebebasan",
-      },
-      {
-        image: "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/adventure-movie-poster-template-design-7b13ea2ab6f64c1ec9e1bb473f345547_screen.jpg?ts=1636999411",
-        tittle: "ARCHER",
-        desc: "Film ini menceritakan tentang pemanah",
-      },
-      {
-        image: "https://3.bp.blogspot.com/-l1wvYQOYX60/XEQwXPmULeI/AAAAAAAAMeE/L-NvvXbwb8ADah01TFPcob-0sYazVPAggCLcBGAs/s640/black_panther_ver3.jpg",
-        tittle: "Black Panther",
-        desc: "Film ini menceritakan tentang nigga",
-      },
-      {
-        image: "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-3fde07497ef159f8ba0617dee83d982e_screen.jpg?ts=1636997626",
-        tittle: "Story Castlerock",
-        desc: "Film ini menceritakan tentang gaktau",
-      },
-    ],
+    });
   };
 
-  render() {
-    return (
-      <Container fluid>
-        <h1 className="text-center mt-4">{this.props.data}</h1>
-        <Row md={5}>
-          {this.state.film.map((data, index) => {
+  return (
+    <>
+      <h2 className="text-center mt-3 mb-4">NOW PLAYING</h2>
+      <Container fluid className="ms-auto">
+        <Row xxl={4} xl={4} lg={3} md={2}>
+          {film.map((film, index) => {
             return (
               <div key={index}>
                 <Col>
-                  <Card style={{ width: "20rem" }}>
-                    <Card.Img style={{ height: "28rem" }} variant="top" src={data.image} />
+                  <Card style={{ width: "18rem" }} className="m-auto mb-5">
+                    <Card.Img variant="top" src={BASEIMAGE + film.poster_path} />
                     <Card.Body>
-                      <Card.Title className="text-center">{data.tittle}</Card.Title>
-                      <Card.Text>{data.desc}</Card.Text>
+                      <Card.Title className="text-center fs-6">{film.title}</Card.Title>
+                      <Card.Text className="text-center">{film.release_date}</Card.Text>
+                      <Button onClick={() => handleClick(film)} className="w-100 mt-2" variant="primary">
+                        Detail Movie
+                      </Button>
+                      <Button onClick={() => handleFav(film)} className="w-100 mt-2" variant="primary">
+                        Add Favorit
+                      </Button>
                     </Card.Body>
                   </Card>
                 </Col>
@@ -54,8 +76,8 @@ class ListFilm extends Component {
           })}
         </Row>
       </Container>
-    );
-  }
-}
+    </>
+  );
+};
 
 export default ListFilm;
